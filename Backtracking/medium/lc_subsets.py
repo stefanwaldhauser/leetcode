@@ -1,3 +1,4 @@
+# https://leetcode.com/problems/subsets/description/
 from typing import List
 
 # How many subsets are there?
@@ -45,7 +46,7 @@ def subsets_backtracking(nums: List[int]) -> List[List[int]]:
 
 
 # As l only contains unique numbers, this solutions naturally leads to never generating (2,1) and (1,2) as the list l is trespassed in order
-# Recursiive solution
+# Recursive solution
 def __subsets(l):
     if len(l) == 0: # base case as we exhausted all the options
         return [()]

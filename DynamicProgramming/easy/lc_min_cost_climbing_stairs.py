@@ -1,3 +1,4 @@
+# https://leetcode.com/problems/min-cost-climbing-stairs
 from typing import List
 
 
@@ -17,4 +18,3 @@ class Solution:
             return cost[0]
         if maxStep == 1:
             return cost[1]
-        

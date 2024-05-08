@@ -9,5 +9,3 @@ class Solution:
             prev_row[i] = (prev_row[i] + prev_row[i+1])
         prev_row = [1] + prev_row
         return prev_row
-
-# ToDo
