@@ -46,3 +46,31 @@ class Solution:
 
 # Run Time: O(n)
 # Space Complexity: O(k)
+
+
+# Solution without the queue
+class Solution2:
+    def maximumSubarraySum(self, nums: List[int], k: int) -> int:
+        max_sum = 0
+
+        window_length = 0
+        window_sum = 0
+        window_count = defaultdict(int)
+
+        for i,v in enumerate(nums):
+            window_sum += v
+            window_count[v] += 1
+            window_length += 1
+
+            if window_length > k:
+                oldest_value = nums[i-k]
+                window_sum -= oldest_value
+                window_length -= 1
+                window_count[oldest_value] -= 1
+                if window_count[oldest_value] == 0:
+                    del window_count[oldest_value]
+            # Is the case when no duplicates and window grown to k
+            if len(window_count) == k:
+                max_sum = max(window_sum, max_sum)
+
+        return max_sum
