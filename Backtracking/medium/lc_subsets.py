@@ -81,6 +81,7 @@ class Solution:
             subset.pop() # reverse decision
             # choice b -> include element at index i
             backtrack(subset, i + 1)
+            # No pop() needed to reverse decision as we did not add anything to the subset!
 
         backtrack([], 0)
 
