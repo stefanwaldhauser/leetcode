@@ -66,6 +66,28 @@ def subsets(nums: List[int]) -> List[List[int]]:
     return [list(t) for t in result] # Convert list of tuples to list of lists
 
 
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        all_subsets = []
+
+        def backtrack(subset, i):
+            if i >= len(nums):
+                all_subsets.append(subset.copy())
+                return
+
+            # choice a -> do not include element at index i
+            subset.append(nums[i])
+            backtrack(subset, i + 1)
+            subset.pop() # reverse decision
+            # choice b -> include element at index i
+            backtrack(subset, i + 1)
+
+        backtrack([], 0)
+
+        return all_subsets
+
+
+
 
 # TEST CODE
 
