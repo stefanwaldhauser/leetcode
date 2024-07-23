@@ -47,3 +47,39 @@ def combination_sum(candidates: List[int], target: int) -> List[List[int]]:
 # Decision 0: [3], i = 0
 # Decision 1: [4], i = 1
 # Decision 2: [5]  i = 2
+
+
+# Ordering is not important! Do not return [2,3] and [3,2]. It needs to be unique combinatons
+# each candidate can be used as many times as you want
+# candidates 1 <= candidates.length <= 30
+# 2 <= candidates[i] <= 40
+# all elements of candidates are distinct
+# 1 <= target <= 40
+
+
+class Solution:
+    def combinationSum(this,candidates: List[int], target: int) -> List[List[int]]:
+        solutions = []
+
+
+        def backtrack(solution, solution_sum, candidate_i):
+            if solution_sum == target:
+                solutions.append(solution.copy())
+                return
+            if solution_sum > target:
+                return
+            if candidate_i > len(candidates) - 1:
+                return
+
+            # choose candidate
+            candidate = candidates[candidate_i]
+            solution.append(candidate)
+            # Leave it in the list of candidates as we can choose again
+            backtrack(solution, solution_sum + candidate, candidate_i)
+            solution.pop()
+            # do not choose candidate and remvoe it form the list
+            backtrack(solution, solution_sum, candidate_i + 1)
+
+
+        backtrack([], 0, 0)
+        return solutions
