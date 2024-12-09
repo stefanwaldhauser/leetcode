@@ -1,9 +1,16 @@
 class Solution:
     def trap(self, height):
         n = len(height)
+        n = len(height)
         trapped_rain = 0
         if n < 3:
             return trapped_rain
+
+        prefix_sum = [0] * len(height)
+        current_sum = 0
+        for i in range(n):
+            current_sum += height[i]
+            prefix_sum[i] = current_sum
 
         i = 0
         while i < n:
@@ -27,9 +34,7 @@ class Solution:
 
             # We found a right wall
             if j != -1:
-                walls_in_between = 0
-                for k in range(i+1, j):
-                    walls_in_between += height[k]
+                walls_in_between = prefix_sum[j-1] - prefix_sum[i]
                 trapped_rain += ((j-i-1) *
                                  min([height[i], height[j]]) - walls_in_between)
                 i = j
@@ -37,3 +42,10 @@ class Solution:
             else:
                 i += 1
         return trapped_rain
+
+# Runtime: O(n^2) # To get rid of it in the worst case we need to get rid of the nested loop structure
+# Space: O(1)
+
+
+class BestSolution:
+    def trap(self, height):
