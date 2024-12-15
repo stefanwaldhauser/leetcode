@@ -10,14 +10,13 @@ class Solution:
         for num in nums:
             num_to_freq[num] += 1
 
-        # step 2: invert, so store for each count which numbers have thatcount
+        # step 2: invert, so store for each count which numbers have that count
         freq_to_nums = defaultdict(list)
         for num, freq in num_to_freq.items():
             freq_to_nums[freq].append(num)
 
         # Step 3: Maximum count is n, try to go one by one until you found k numbers
         n = len(nums)
-
 
         solution = []
         for i in range(n, -1, -1):
@@ -40,7 +39,7 @@ class HeapSolution:
 
         heap = []
         for num, freq in num_to_freq.items():
-            heap.append((-freq,num))
+            heap.append((-freq, num))
         heapify(heap)
 
         solution = []
@@ -77,3 +76,28 @@ class HeapSolution:
 # - Heap: O(m)
 # - Solution array: O(k)
 # Total Space: O(m) or O(n) in worst case
+
+
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        n = len(nums)
+        count = defaultdict(int)
+
+        # For each possible count (0, n) we create a list of those elements with that count
+        freq = [[] for _ in range(n + 1)]
+
+        for num in nums:
+            count[num] += 1
+
+        for num, cnt in count.items():
+            freq[cnt].append(num)
+
+        res = []
+        for i in range(n, -1, -1):
+            for num in freq[i]:
+                res.append(num)
+                if len(res) == k:
+                    return res
+
+# Runtime: O(n)
+# Space: O(n)
