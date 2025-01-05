@@ -48,3 +48,26 @@ class Solution:
             stack.append(i)
 
         return solution
+
+
+class AnotherSolution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        # what we want is the next larger temperature, we use a continous stack for this
+        solution = [None] * len(temperatures)
+
+        stack = []
+        for i in range(len(temperatures)):
+            # i is the index of the next larger temperature for the elements in the stack
+            while stack and temperatures[i] > temperatures[stack[-1]]:
+                popped = stack.pop()
+                solution[popped] = (i-popped)
+            # Just as a note
+            # We popped all smaller or equal temperatures
+            # Stack[-2] is the previous larger temperature for stack[-1] and so on, therefore monotonic stack
+            stack.append(i)
+
+        while stack:
+            popped = stack.pop()
+            solution[popped] = 0
+
+        return solution
